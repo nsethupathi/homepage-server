@@ -26,7 +26,7 @@ func GetPresignedUrl(c *gin.Context) {
 	// Create S3 service client
 	svc := s3.New(sess)
 
-	songKey := fmt.Sprintf("music/%s.mp3", songName)
+	songKey := fmt.Sprintf("music/%s.wav", songName)
 	req, _ := svc.GetObjectRequest(&s3.GetObjectInput{
 		Bucket: aws.String("niv-homepage-bucket"),
 		Key:    aws.String(songKey),
