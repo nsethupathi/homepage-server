@@ -16,7 +16,7 @@ func exitErrorf(msg string, args ...interface{}) {
 	os.Exit(1)
 }
 
-func GetPresignedUrl(c *gin.Context) {
+func GetMusicUrl(c *gin.Context) {
 	songName := c.Param("songName")
 
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
