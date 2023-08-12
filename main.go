@@ -2,13 +2,13 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"homepage-server/src/aws/service"
+	"homepage-server/src/orchestrator"
 )
 
 func main() {
 
 	router := gin.Default()
-	router.GET("/song/:songName", service.GetMusicUrl)
+	router.GET("/shows", orchestrator.Orchestrate)
 
 	router.Run("localhost:8080")
 }

@@ -1,4 +1,4 @@
-package service
+package orchestrator
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func GetMusicUrl(c *gin.Context) {
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	// Create S3 service client
+	// Create S3 orchestrator client
 	svc := s3.New(sess)
 
 	songKey := fmt.Sprintf("music/%s.wav", songName)
