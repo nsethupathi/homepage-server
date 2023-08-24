@@ -2,15 +2,13 @@ package orchestrator
 
 import (
 	"github.com/gin-gonic/gin"
-	"homepage-server/src/AwsService"
+	"homepage-server/src/aws"
 	"log"
 	"net/http"
 )
 
 func Orchestrate(c *gin.Context) {
-
-	runner := AwsService.BuildRunner()
-	shows, err := runner.GetShows()
+	shows, err := aws.GetShows()
 	if err != nil {
 		log.Fatalf("Error retrieving shows: %v", err)
 	}
