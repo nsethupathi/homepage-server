@@ -1,4 +1,4 @@
-package aws
+package showrepository
 
 import (
 	"context"
@@ -17,12 +17,11 @@ type ShowDO struct {
 	VENUE   string `dynamodbav:"VENUE"`
 }
 
-func GetShows() ([]*ShowDO, error) {
+func GetShows(showRunner *TableRunner) ([]*ShowDO, error) {
 	var err error
 	var response *dynamodb.QueryOutput
 	var shows []*ShowDO
 
-	runner := buildRunner()
 	key := expression.KeyAnd(
 		expression.Key("PK").Equal(expression.Value(1)),
 		expression.Key("DATE").GreaterThanEqual(expression.Value(time.Now().Format("2006-01-02T15:04:05"))))
@@ -30,11 +29,11 @@ func GetShows() ([]*ShowDO, error) {
 	if err != nil {
 		log.Printf("Couldn't build expression for query. Here's why: %v\n", err)
 	} else {
-		response, err = runner.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
+		response, err = showRunner.DynamoDbClient.Query(context.TODO(), &dynamodb.QueryInput{
 			KeyConditionExpression:    expr.KeyCondition(),
 			ExpressionAttributeNames:  expr.Names(),
 			ExpressionAttributeValues: expr.Values(),
-			TableName:                 aws.String(runner.TableName),
+			TableName:                 aws.String(showRunner.TableName),
 		})
 		if err != nil {
 			log.Printf("Couldn't query for shows. Here's why: %v\n", err)
@@ -45,6 +44,5 @@ func GetShows() ([]*ShowDO, error) {
 			}
 		}
 	}
-
 	return shows, err
 }

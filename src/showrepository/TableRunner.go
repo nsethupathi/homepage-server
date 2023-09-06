@@ -1,4 +1,4 @@
-package aws
+package showrepository
 
 import (
 	"github.com/aws/aws-sdk-go-v2/config"
@@ -12,7 +12,7 @@ type TableRunner struct {
 	TableName      string
 }
 
-func buildRunner() *TableRunner {
+func BuildRunner(tableName string) *TableRunner {
 	cfg, err := config.LoadDefaultConfig(context.TODO())
 	if err != nil {
 		log.Fatalf("failed to load configuration, %v", err)
@@ -20,6 +20,6 @@ func buildRunner() *TableRunner {
 
 	return &TableRunner{
 		DynamoDbClient: dynamodb.NewFromConfig(cfg),
-		TableName:      "SHOWS",
+		TableName:      tableName,
 	}
 }
