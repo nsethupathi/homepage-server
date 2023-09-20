@@ -6,10 +6,10 @@ import (
 )
 
 type FormattedShow struct {
-	date    string
-	time    string
-	venue   string
-	address string
+	Date    string `json:"date"`
+	Time    string `json:"time"`
+	Venue   string `json:"venue"`
+	Address string `json:"address"`
 }
 
 func BuildFormattedShow(show *showrepository.ShowDO) *FormattedShow {
@@ -17,9 +17,9 @@ func BuildFormattedShow(show *showrepository.ShowDO) *FormattedShow {
 	isoDate := splitDate[0]
 	isoTime := splitDate[1]
 	return &FormattedShow{
-		date:    formatDate(isoDate),
-		time:    formatTime(isoTime),
-		venue:   show.VENUE,
-		address: show.ADDRESS,
+		Date:    formatDate(isoDate),
+		Time:    formatTime(isoTime),
+		Venue:   show.VENUE,
+		Address: show.ADDRESS,
 	}
 }
